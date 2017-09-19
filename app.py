@@ -1,4 +1,4 @@
-class ContactBox:
+class ContactManager:
     def __init__(self, contacts=[]):
         self.contacts = contacts
 
@@ -12,16 +12,23 @@ class ContactBox:
             if contact.name == name:
                 return print(contact.name, contact.age, contact.number, contact.gender)
             else:
-                return print('Contact not found')
+                return print('Sorry {} is not found in contact'.format(name))
 
     def delete_contact(self, name=''):
         name = input('Enter name to delete: ')
         for contact in self.contacts:
             if contact.name == name:
                 self.contacts.remove(contact)
-                print('Contact removed successfully')
+                return print('Contact removed successfully')
             else:
-                print('Contact not found')
+                return print('Sorry {} is not found in contact'.format(name))
+
+    def get_contacts(self):
+        for contact in self.contacts:
+            print(contact.name, contact.number, contact.age, contact.gender)
+        else:
+            return print('Sorry no contact found')
+
 
 class Contact:
     def __init__(self, name='', age='', number='', gender=''):
@@ -32,10 +39,10 @@ class Contact:
 
 
 def main():
-    new_contact = ContactBox()
 
     while True:
-        ans = int(input('Press 1 to add, 2 to search and 3 to delete: '))
+        new_contact = ContactManager()
+        ans = int(input('Press 1 to add, 2 to search, 3 to delete and 4 to fetch all contacts: '))
 
         if ans == 1:
             contact = Contact()
@@ -44,7 +51,10 @@ def main():
             new_contact.search_contact()
         elif ans == 3:
             new_contact.delete_contact()
+        elif ans == 4:
+            new_contact.get_contacts()
         else:
             print('Sorry bye bye')
+            break
 
 main()
